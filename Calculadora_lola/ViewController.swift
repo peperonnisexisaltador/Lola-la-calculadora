@@ -17,12 +17,16 @@ class ViewController: UIViewController {
     estados_de_la_calculadora.seleccionar_numeros
     
     @IBOutlet weak var texto_a_cambiar:UILabel!
-    @IBOutlet weak var boton_operacion:UILabel!
-    
     var botones_interffaz: Dictionary<String, IUBotonCalculadora> = [:]
     var operacion_actual: String? = nil
+    
+    @IBOutlet weak var boton_operacion:UILabel!
+    @IBOutlet weak var vista_stack:UIStackView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
        inicializar_calculadora()
     }
 
@@ -38,6 +42,7 @@ class ViewController: UIViewController {
             else {
                 operacion_actual = nil
             }
+            dibujar_numeros_u_operaciones_en_interfaz()
         }
        
         
@@ -50,21 +55,39 @@ class ViewController: UIViewController {
     }
     func inicializar_calculadora () -> Void{
         crear_arreglo_botones()
+        identificar_botones()
     }
     func crear_arreglo_botones () -> Void {
        
-        botones_interffaz = IUBotonCalculadora.crear_arreglo()
+        botones_interffaz = IUBotonCalculadora.crear_arreglo_botones()
         
     }
     func dibujar_numeros_u_operaciones_en_interfaz() {
         if(estado_actual == estados_de_la_calculadora.escoger_operacion){
-            
+            for elemento in botones_interffaz.values{
+                elemento.referencia_a_boton_interfaz?.setTitle("ñ", for: .normal)
         }
         else if (estado_actual == estados_de_la_calculadora.seleccionar_numeros){
-            
+            for elemento in botones_interffaz.values{
+                elemento.referencia_a_boton_interfaz?.setTitle(String(elemento.numero), for: .normal)
         }
     }
-    
+    func identificar_botones(){
+        for pila_de_componentes in vista_stack.subviews{
+            for boton in pila_de_componentes.subviews{
+                
+                if let identificador = boton.restorationIdentifier{
+                    print(botones_interffaz[identificador]?.referencia_a_boton_interfaz = boton as? UIButton)
+                }
+                
+                for elemento in botones_interffaz.values{
+                    elemento.referencia_a_boton_interfaz?.setTitle("ñ", for: .normal)
+                    
+                }
+                
+            }
+        }
+    }
     
 }
 
