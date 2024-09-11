@@ -27,10 +27,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       inicializar_calculadora()
+        inicializar_calculadora()
     }
-
-
+    
+    
     @IBAction func que_hacer_pushar(_ sender: UIButton) {
         if (estado_actual == estados_de_la_calculadora.seleccionar_numeros){
             let text_a_añadir = botones_interffaz[(sender.restorationIdentifier ?? boton_operacion.restorationIdentifier) ?? "boton"]?.numero ; texto_a_cambiar.text = "\(texto_a_cambiar.text)\(text_a_añadir)"
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
             }
             dibujar_numeros_u_operaciones_en_interfaz()
         }
-       
+        
         
     }
     @IBAction func boton_operacion_pulsado (_ sender: UIButton){
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         identificar_botones()
     }
     func crear_arreglo_botones () -> Void {
-       
+        
         botones_interffaz = IUBotonCalculadora.crear_arreglo_botones()
         
     }
@@ -66,10 +66,13 @@ class ViewController: UIViewController {
         if(estado_actual == estados_de_la_calculadora.escoger_operacion){
             for elemento in botones_interffaz.values{
                 elemento.referencia_a_boton_interfaz?.setTitle("ñ", for: .normal)
+            }
+            
         }
         else if (estado_actual == estados_de_la_calculadora.seleccionar_numeros){
             for elemento in botones_interffaz.values{
                 elemento.referencia_a_boton_interfaz?.setTitle(String(elemento.numero), for: .normal)
+            }
         }
     }
     func identificar_botones(){
@@ -88,6 +91,4 @@ class ViewController: UIViewController {
             }
         }
     }
-    
 }
-
